@@ -1,13 +1,14 @@
 import React from "react";
 import classNames from "classnames";
 import * as core from "./core";
+import * as appCore from "./../../appCore";
 import Loading from "../../components/Loading";
 import VideoLink from "../../components/VideoLink";
 
 export default function Video(props) {
-    const {pageState, triggerEvent} = props;
+    const {appState, pageState, triggerEvent} = props;
 
-    const videoSrc = `https://www.youtube.com/embed/${core.getVideoId(pageState)}${"?autoplay=1"/* Should we autoplay? */}`;
+    const videoSrc = `https://www.youtube.com/embed/${core.getVideoId(pageState)}${appCore.shouldAutoPlay(appState) ? "?autoplay=1" : ""}`;
     const snippet = core.getVideoSnippet(pageState);
     return (
         <div className="ui padded grid row">

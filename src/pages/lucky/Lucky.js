@@ -1,5 +1,6 @@
 import React from "react";
 import * as core from "./core";
+import Error from "../../components/Error";
 
 export default function Lucky(props) {
     let {pageState} = props;
@@ -7,9 +8,7 @@ export default function Lucky(props) {
     return (
         <div>
             <h3>I feel lucky...</h3>
-            {core.getPromptResult(pageState) ?
-                <p>Searching for video matching: <span style={{fontWeight: "bold"}}>{core.getPromptResult(pageState)}</span>...</p> : null}
-            <p>Is my video showing yet? :(</p>
+            {core.shouldShowSearchError(pageState) ? <Error/> : null}
         </div>
     );
 }

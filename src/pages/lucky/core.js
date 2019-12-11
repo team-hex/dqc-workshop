@@ -29,9 +29,30 @@ export function getPromptResult(pageState) {
 }
 
 export function shouldFetchSearch(pageState) {
-    return false; // When should we perform the search?
+    return getPromptResult(pageState) && pageState.searchService.ok === null && !pageState.searchService.fetching;
+}
+
+export function onFetchSearchStarted(pageState) {
+    pageState.searchService.fetching = true;
+    return pageState;
+}
+
+export function onReceiveSearch(pageState, {data, ok, error}) {
+    pageState.searchService.fetching = false;
+    pageState.searchService.data = data && data.items && data.items[0];
+    pageState.searchService.ok = ok;
+    pageState.searchService.error = error;
+    return pageState;
+}
+
+export function shouldShowSearchError(pageState) {
+    return !pageState.searchService.ok && pageState.searchService.error;
 }
 
 export function shouldNavigate(pageState) {
-    return false; // When should we navigate?
+    return !!pageState.searchService.data;
+}
+
+export function getVideoId(pageState) {
+    return pageState.searchService.data.id.videoId;
 }

@@ -4,6 +4,7 @@ export function createPageState() {
     return {
         searchBarInputValue: "",
         videoTypeValue: "any",
+        videoTopicValue: "any",
         videoSearchService: {
             requested: false,
             fetching: false,
@@ -116,6 +117,53 @@ export function getVideoTypeValue(pageState) {
 
 export function onVideoTypeValueChange(pageState, value) {
     pageState.videoTypeValue = value;
+    handleSubmit(pageState);
+    return pageState;
+}
+
+export function getVideoTopicOptions() {
+    return [
+        {
+            value: "any",
+            label: "Any"
+        },
+        {
+            value: "/m/04rlf",
+            label: "Music"
+        },
+        {
+            value: "/m/0bzvm2",
+            label: "Gaming"
+        },
+        {
+            value: "/m/06ntj",
+            label: "Sports"
+        },
+        {
+            value: "/m/02jjt",
+            label: "Entertainment"
+        },
+        {
+            value: "/m/019_rr",
+            label: "Lifestyle"
+        },
+        {
+            value: "/m/098wr",
+            label: "Society"
+        },
+        {
+            value: "/m/01k8wb",
+            label: "Knowledge"
+        }
+    ];
+}
+
+export function getVideoTopicValue(pageState) {
+    return pageState.videoTopicValue;
+}
+
+export function onVideoTopicValueChange(pageState, value) {
+    pageState.videoTopicValue = value;
     handleSubmit(pageState);
     return pageState;
 }

@@ -1,6 +1,6 @@
 import * as core from "./core";
 import * as youtube from "../../services/youtube";
-// import {getUrl, PAGE_VIDEO} from "../../paths";
+import {getUrl, PAGE_VIDEO} from "../../paths";
 
 export default function performSideEffects({pageState, updatePageState, system, triggerEvent}) {
     if (core.shouldShowPrompt(pageState)) {
@@ -10,13 +10,11 @@ export default function performSideEffects({pageState, updatePageState, system, 
     } else if (core.shouldFetchSearch(pageState)) {
         youtube.getSearchResults(system, {q: core.getPromptResult(pageState)})
             .then(function (response) {
-                // Update state on receive
+                updatePageState(core.onReceiveSearch, response);
             });
-
-        // Update state to prevent us from entering this if clause again
+        updatePageState(core.onFetchSearchStarted);
     } else if (core.shouldNavigate(pageState)) {
-        // let url = getUrl(PAGE_VIDEO, {pathParameters: [VIDEO_ID]});
-
-        // Use triggerEvent to perform a redirect
+        let url = getUrl(PAGE_VIDEO, {pathParameters: [core.getVideoId(pageState)]});
+        triggerEvent("navigate", {url: url});
     }
 }

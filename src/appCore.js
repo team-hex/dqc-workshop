@@ -1,7 +1,8 @@
 export function createAppState() {
     return {
         pageId: null,
-        pageStates: {}
+        pageStates: {},
+        autoPlay: true
     };
 }
 
@@ -19,5 +20,14 @@ export function getCurrentPageState(appState) {
 
 export function onPageStateChange(appState, pageId, value) {
     appState.pageStates[pageId] = value;
+    return appState;
+}
+
+export function shouldAutoPlay(appState) {
+    return !!appState.autoPlay;
+}
+
+export function onAutoPlayValueChange(appState, value) {
+    appState.autoPlay = value;
     return appState;
 }

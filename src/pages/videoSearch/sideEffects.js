@@ -15,7 +15,7 @@ export default function performSideEffects({pageState, updatePageState, system})
         youtube.getSearchResults(system, {
             q: core.getSearchBarInputValue(pageState),
             videoType: core.getVideoTypeValue(pageState),
-            topicId: "any"
+            topicId: core.getVideoTopicValue(pageState)
         })
             .then(function (response) {
                 updatePageState(core.onReceiveVideos, response);

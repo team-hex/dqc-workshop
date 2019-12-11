@@ -47,6 +47,18 @@ function SearchBar(props) {
                             })}
                         </select>
                     </div>
+                    <div className={"three wide field"}>
+                        <label>Topic</label>
+                        <select className={"ui fluid dropdown"}
+                                onChange={function (event) {
+                                    updatePageState(core.onVideoTopicValueChange, event.target.value);
+                                }}
+                                value={core.getVideoTopicValue(pageState)}>
+                            {core.getVideoTopicOptions().map(function ({value, label}) {
+                                return <option key={value} value={value}>{label}</option>
+                            })}
+                        </select>
+                    </div>
                 </div>
             </form>
         </div>

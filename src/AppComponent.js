@@ -3,7 +3,7 @@ import classNames from "classnames";
 import {getUrl, getPageComponent, PAGE_LUCKY, PAGE_POPULAR, PAGE_VIDEO_SEARCH, PAGE_START} from "./paths";
 import Link from "./components/Link";
 import {Checkbox, Icon} from 'semantic-ui-react'
-// import * as appCore from "./appCore";
+import * as appCore from "./appCore";
 
 const MENU_OPTIONS = [
     {
@@ -26,7 +26,7 @@ const MENU_OPTIONS = [
 ];
 
 export default function App(props) {
-    let {appState, /* updateAppState ,/*/ triggerEvent} = props;
+    let {appState, updateAppState, triggerEvent} = props;
     let PageComponent = getPageComponent(appState.pageId);
     return <div>
         <div className="ui massive menu">
@@ -37,9 +37,9 @@ export default function App(props) {
             <div className="right item">
                 <Checkbox label="Autoplay"
                           toggle
-                          checked={undefined}
+                          checked={appCore.shouldAutoPlay(appState)}
                           onChange={function () {
-                              // Where should we store autoplay state?
+                              updateAppState(appCore.onAutoPlayValueChange, !appCore.shouldAutoPlay(appState));
                           }}/>
             </div>
         </div>

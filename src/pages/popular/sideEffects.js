@@ -2,13 +2,12 @@ import * as core from "./core";
 import * as youtube from "../../services/youtube";
 
 export default function performSideEffects({pageState, updatePageState, system}) {
-    if (false) { // Should we fetch?
-        let regionCode = core.UNITED_STATES; // Which code to fetch?
+    if (core.shouldFetchVideos(pageState)) {
+        let regionCode = core.getRegionCodeToFetch(pageState);
         youtube.getMostPopularByRegionCode(system, regionCode)
             .then(function (response) {
-                // Update state on receive
+                updatePageState(core.onReceiveVideos, response, regionCode);
             });
-
-        // Update state to prevent us from entering this if clause again
+        updatePageState(core.onFetchVideosStarted, regionCode);
     }
 }
