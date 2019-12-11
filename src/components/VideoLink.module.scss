@@ -1,0 +1,14 @@
+.videoItem {
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer;
+
+  img {
+    max-width: 200px !important;
+    max-height: 250px !important;
+  }
+}
+
+.videoItem:hover {
+  background-color: rgba(0, 0, 0, .05);
+}
